@@ -1,13 +1,21 @@
 import { Ball } from "./Ball.js";
 
 export class Weapon{
-    constructor(type, power, ammunitionLeft, totalAmmunition, characterX, characterY){
+    constructor(type, power, characterX, characterY, characterAngle){
+        let ammunitionNumber = type === 'SINGLESHOT' ? 5 : 5;
         this.characterX = characterX;
         this.characterY = characterY;
+        this.characterAngle = characterAngle;
         this.type = type;
         this.power = power;
-        this.ammunitionLeft = ammunitionLeft;
-        this.totalAmmunition = totalAmmunition;
+        this.ammunitions = {
+            ammunitionLeft: ammunitionNumber, 
+            totalAmmunition: ammunitionNumber,
+            balls: Ball.createBalls(type === 'SINGLESHOT' ? 5 : 5, {
+                x: this.characterX+characterAngle/2,
+                y: this.characterY
+            })
+        }
     }
     getType = () => {
         return this.type;
@@ -15,29 +23,33 @@ export class Weapon{
     getPower = () => {
         return this.power;
     }
-    getAmmunitionLeft = () => {
-        return this.ammunitionLeft;
+    getAmmunitions = () => {
+        return this.ammunitions;
     }
-    getTotalAmmunition = () => {
-        return this.totalAmmunition;
+    setAmmunitions = (prop, value) => {
+        this.ammunitions = {
+            ...this.ammunitions,
+            [prop] : value
+        };
     }
-    setAmmunitionLeft = (ammunitionLeft) => {
-        this.ammunitionLeft =  ammunitionLeft;
-    }
-    fire = (angle, isKeyMaintained) => {
+    fire = (isKeyMaintained) => {
+        console.log(this.characterAngle)
         switch(this.type){
             case 'SINGLESHOT':
                 if(!isKeyMaintained){
                     const balls = document.querySelectorAll('.ball');
                     if(balls.length < 1){
+                        /*On simule le son d'un fusil*/
                         const gunShotSound = new Audio('assets/sounds/singleshot.mp3');
                         gunShotSound.volume = 0.4;
                         gunShotSound.play();
-                        const ball = new Ball(this.characterX+angle/2, this.characterY, 5);
+                        const ball = this.ammunitions.balls[this.ammunitions.balls.length-1];
+                        ball.setX(this.characterX+this.characterAngle/2)
                         const ballElem = document.createElement('span');
                         ballElem.classList.add('ball');
-                        this.ammunitionLeft -= 1;
-                        ball.move(angle, ballElem);
+                        this.ammunitions.ammunitionLeft -= 1;
+                        this.ammunitions.balls.pop();
+                        ball.move(this.characterAngle, ballElem);
                         document.getElementById('gamezone').appendChild(ballElem);
                     }
                 }
@@ -56,7 +68,7 @@ export class Weapon{
         }
 
         setTimeout(()=>{
-            this.ammunitionLeft = this.totalAmmunition;  
+            // this.ammunitionLeft = this.totalAmmunition;  
             console.clear();
         }, loadTime);
     }

@@ -43,8 +43,8 @@ export class Character{
         this.angle = angle;
     }
     shoot = (isKeyMaintained)  => {
-        if(this.weapon.getAmmunitionLeft() > 0){
-            this.weapon.fire(this.angle, isKeyMaintained);
+        if(this.weapon.getAmmunitions().ammunitionLeft > 0){
+            this.weapon.fire(isKeyMaintained);
         }else{
             this.weapon.reload();
         }
