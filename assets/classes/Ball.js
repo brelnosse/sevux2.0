@@ -23,7 +23,7 @@ export class Ball{
         var dx = Math.sin(angle * Math.PI/180) * ball.speed;
         var dy = Math.cos(angle * Math.PI/180) * ball.speed;
 
-            if(ball.y <= 0){
+            if(ball.y <= 0 || ball.x <= 0){
                 elem.remove();
             }
             // if(ball.y > 0){

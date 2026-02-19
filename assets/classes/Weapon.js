@@ -30,6 +30,9 @@ export class Weapon{
                 if(!isKeyMaintained){
                     const balls = document.querySelectorAll('.ball');
                     if(balls.length < 1){
+                        const soundEffect = new Audio('assets/sounds/singleshot.mp3');
+                        soundEffect.volume = 0.4;
+                        soundEffect.play();
                         const ball = new Ball(this.characterX+angle/2, this.characterY, 5);
                         const ballElem = document.createElement('span');
                         ballElem.classList.add('ball');
