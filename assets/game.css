@@ -1,0 +1,40 @@
+:root{
+    --primary-color: #009191;
+}
+
+*
+{
+    font-family: 'Press Start 2P';
+}
+
+body{
+    background-color: var(--primary-color);
+}
+#gamezone{
+    background-color: #ffffff;
+    overflow: hidden;
+    position: absolute;
+    height: 500px;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+}
+#character{
+    background-color: red;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    left: 50%;
+    bottom: 8px;
+    border-radius: 10px;
+    transform: translateX(-50%);
+}
+
+.ball{
+    background-color: black;
+    position: fixed;
+    display: inline-flex;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+}
