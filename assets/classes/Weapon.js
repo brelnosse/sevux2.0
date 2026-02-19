@@ -12,7 +12,7 @@ export class Weapon{
             ammunitionLeft: ammunitionNumber, 
             totalAmmunition: ammunitionNumber,
             balls: Ball.createBalls(type === 'SINGLESHOT' ? 5 : 5, {
-                x: this.characterX+characterAngle/2,
+                x: this.characterX+this.characterAngle/2,
                 y: this.characterY
             })
         }
@@ -33,7 +33,6 @@ export class Weapon{
         };
     }
     fire = (isKeyMaintained) => {
-        console.log(this.characterAngle)
         switch(this.type){
             case 'SINGLESHOT':
                 if(!isKeyMaintained){
@@ -44,6 +43,7 @@ export class Weapon{
                         gunShotSound.volume = 0.4;
                         gunShotSound.play();
                         const ball = this.ammunitions.balls[this.ammunitions.balls.length-1];
+                        //on modifie la position de la balle pour quelle suive l'arme
                         ball.setX(this.characterX+this.characterAngle/2)
                         const ballElem = document.createElement('span');
                         ballElem.classList.add('ball');
@@ -68,7 +68,12 @@ export class Weapon{
         }
 
         setTimeout(()=>{
-            // this.ammunitionLeft = this.totalAmmunition;  
+            let ammunitionNumber = (this.type === 'SINGLESHOT' ? 5 : 5);
+            this.ammunitions.ammunitionLeft = ammunitionNumber;
+            this.ammunitions.balls = Ball.createBalls(5, {
+                x: this.characterX+this.characterAngle/2,
+                y: this.characterY
+            })  
             console.clear();
         }, loadTime);
     }
