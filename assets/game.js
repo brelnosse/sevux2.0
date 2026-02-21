@@ -1,5 +1,9 @@
+import { Cell } from "./classes/Cell.js";
 import { Character } from "./classes/Character.js";
+import { Grid } from "./classes/Grid.js";
+import { Wave } from "./classes/Wave.js";
 import { Weapon } from "./classes/Weapon.js";
+import { Enemy } from "./classes/Enemy.js";
 
 const playerRect = document.getElementById('character').getBoundingClientRect();
 const weapon = new Weapon('SINGLESHOT', 3, (playerRect.x + playerRect.width/2 - 5), playerRect.y, 0);
@@ -24,3 +28,20 @@ const movePlayer = (e) => {
     })
 }
 window.addEventListener('keydown', movePlayer)
+
+/*Logique pour les enemies*/
+const grid = new Grid(5, 6);
+const wave = new Wave(Enemy.createEnemies(5), 0);
+const spaceship = document.createElement('div');
+spaceship.classList.add('spaceship');
+for(let i = 0; i < wave.getEnemies().length; i++){
+    const target = document.createElement('div');
+    target.classList.add('enemy');
+    for(let j = 0; j < wave.getEnemies().length; j++){
+        // if(getComputedStyle(wave.getEnemies()[j]).left)
+    }
+    spaceship.appendChild(target)
+}
+document.getElementById('gamezone').appendChild(spaceship);
+grid.addTargets(wave)
+// console.log(grid)

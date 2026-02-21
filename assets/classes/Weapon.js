@@ -26,12 +26,6 @@ export class Weapon{
     getAmmunitions = () => {
         return this.ammunitions;
     }
-    setAmmunitions = (prop, value) => {
-        this.ammunitions = {
-            ...this.ammunitions,
-            [prop] : value
-        };
-    }
     fire = (isKeyMaintained) => {
         switch(this.type){
             case 'SINGLESHOT':

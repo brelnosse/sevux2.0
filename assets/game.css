@@ -38,3 +38,18 @@ body{
     width: 10px;
     border-radius: 50%;
 }
+.spaceship{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 500px;
+    background-color: red;
+}
+.enemy{
+    background-color: blue;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    position: absolute;
+}
